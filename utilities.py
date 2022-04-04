@@ -107,6 +107,6 @@ class Gantt:
 
     else:
       for subProc in self.gArr:
-        res += f"Process {subProc.proc.pid} executed for {subProc.currBurst} seconds\n"
+        res += f"Process {subProc.proc.pid} executed for {subProc.currBurst} seconds from {subProc.start} to {subProc.start + subProc.currBurst}\n"
 
     return res
