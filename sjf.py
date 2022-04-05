@@ -1,7 +1,6 @@
-from multiprocessing.dummy import Process
-
-
 from typing import List
+
+from numpy import Infinity
 from utilities import *
 
 
@@ -37,8 +36,41 @@ def sjf(processes: List[Process]) -> Gantt:
   return gantt
 
 
+def preemp_sjf(processes: List[Process]) -> Gantt:
+  gantt = Gantt()
+
+  if not len(processes):
+    return gantt
+
+  time = 0
+  totalBurst = total_burst(processes)
+
+  while totalBurst:
+    nextExec = None
+
+    for proc in processes:
+      if not proc.isComplete():
+        if proc.arrTime <= time:
+
+          if not nextExec:
+            nextExec = proc
+
+          if proc.timeLeft() < nextExec.timeLeft():
+            nextExec = proc
+
+    nextExecSub = SubProcess(time, 1, nextExec)
+    nextExecSub.execute(gantt)
+
+    time += 1
+    totalBurst -= 1
+
+  return gantt
+
+
 if __name__ == "__main__":
   processes = temp_proc_list()
 
-  gantt = sjf(processes)
+  # gantt = sjf(processes)
+  gantt = preemp_sjf(processes)
+
   print(gantt)

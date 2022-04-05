@@ -48,9 +48,13 @@ class Process:
 
     self._completed = 0
 
-  def isComplete(self):
+  def isComplete(self) -> bool:
     """ Returns if process has completed execution or not """
     return self.completed == self.burst
+
+  def timeLeft(self) -> int:
+    """ Returns the amount of seconds left of execution of process """
+    return self.burst - self.completed
 
   @property
   def completed(self):
