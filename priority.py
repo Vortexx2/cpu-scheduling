@@ -55,26 +55,20 @@ def preemp_priority(processes: List[Process]) -> Gantt:
           if not nextExec:
             nextExec = proc
 
-          if proc.arrTime < nextExec.arrTime:
+          if proc.prio < nextExec.prio:
             nextExec = proc
 
-          if proc.arrTime == nextExec.arrTime:
-            # if priority of any process is higher than current selection if arrival times are same
-            if proc.prio < nextExec.prio:
-              nextExec = proc
-
-    nextExecSub = SubProcess(time, nextExec.burst, nextExec)
+    nextExecSub = SubProcess(time, 1, nextExec)
     nextExecSub.execute(gantt)
-    time += nextExec.burst
-    totalBurst -= nextExec.burst
+    time += 1
+    totalBurst -= 1
 
   return gantt
-
 
 
 if __name__ == "__main__":
 
   processes = temp_proc_list()
 
-  gantt = priority(processes)
+  gantt = preemp_priority(processes)
   print(gantt)

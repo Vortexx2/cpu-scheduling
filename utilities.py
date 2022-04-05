@@ -104,6 +104,19 @@ class Gantt:
     self.gArr.append(subProc)
     self.totalExecTime += execTime
 
+  # def combineSubProcesses(self) -> None:
+  #   collapsedArr = []
+  #   prevSub = None
+
+  #   for subp in self.gArr:
+  #     if subp.proc.pid != prevSub.proc.pid:
+  #       newProc = Process(subp.proc.pid, subp.proc.arrTime, subp.proc.burst, subp.proc.prio)
+  #       newProcSub = SubProcess(subp.)
+  #       collapsedArr.append(subp)
+  #       prevSub = subp
+
+  #   self.gArr = collapsedArr
+
   def __str__(self) -> str:
     res = ""
     if not self.gArr:
